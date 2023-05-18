@@ -78,14 +78,14 @@ namespace gd__ {
                     {
                         co::MutexGuard guard(outputMut);
 
-                        std::cout << "YOU ARE " << e.first << '\n';
+                        std::cout << "\033[0;32m YOU ARE " << e.first << '\n';
                     }
 
                     {
                         co::MutexGuard guard(mut);
 
                         if (lastLogInsertUser == e.first && epoch::ms() - lastLogInsertTime < 12000) {
-                            std::cout << "log insert failed for time delaying!\n";
+                            LOG << "log insert failed for time delaying!\n";
 
                             break;
                         } else {
@@ -152,7 +152,7 @@ namespace gd__ {
                     {
                         co::MutexGuard guard(outputMut);
 
-                        std::cout << "log insert  successful!\n";
+                        LOG << "log insert  successful!\n";
                     }
 
                     break;
