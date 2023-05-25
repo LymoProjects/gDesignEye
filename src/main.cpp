@@ -43,17 +43,21 @@ auto main() -> int {
         try {
             cap.read(img);
 
-            cv::imshow("capture " + std::to_string(gd__::pref::captureIndex), img);
+            //cv::imshow("capture " + std::to_string(gd__::pref::captureIndex), img);
 
             cv::resize(img, img, cv::Size(200, 300));
 
             faceDtor->detect(img, detected);
 
-            if (detected.rows >= 1 && 0.95 < detected.at<float>(0, 14)) {
-                go([](cv::Mat img) {
-                    gd__::featureLoader::ref().identify(img);
-                }, img);
-            }
+            cv::Mat copyImg(img);
+            gd__::dnnWorkConf::visualize(copyImg, detected);
+            cv::imshow("visualize capture " + std::to_string(gd__::pref::captureIndex), copyImg);
+
+            // if (detected.rows >= 1 && 0.95 < detected.at<float>(0, 14)) {
+            //     go([](cv::Mat img) {
+            //         gd__::featureLoader::ref().identify(img);
+            //     }, img);
+            // }
 
             cv::waitKey(100);
         } catch (std::exception const & e) {
